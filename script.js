@@ -42,10 +42,13 @@ function updateCountdown() {
     const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
     
     // Format the values to ensure leading zeros
-    const formattedDays = String(days).padStart(3, '0');
+    const formattedDays = String(days).padStart(2, '0');
     const formattedHours = String(hours).padStart(2, '0');
     const formattedMinutes = String(minutes).padStart(2, '0');
     const formattedSeconds = String(seconds).padStart(2, '0');
+    
+    // Create a formatted display with colons (dd:hh:mm:ss)
+    const countdownDisplay = `${formattedDays}:${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
     
     // Update the DOM elements
     daysElement.textContent = formattedDays;
@@ -53,11 +56,42 @@ function updateCountdown() {
     minutesElement.textContent = formattedMinutes;
     secondsElement.textContent = formattedSeconds;
     
-    // Add a pulse effect to the seconds element to indicate it's updating
+    // Add a glow effect to the element that just changed
+    const allElements = [daysElement, hoursElement, minutesElement, secondsElement];
+    allElements.forEach(el => el.classList.remove('glow-change'));
+    
+    // Determine which element changed and add the glow effect
+    if (seconds === 0) {
+        if (minutes === 0) {
+            if (hours === 0) {
+                daysElement.classList.add('glow-change');
+            } else {
+                hoursElement.classList.add('glow-change');
+            }
+        } else {
+            minutesElement.classList.add('glow-change');
+        }
+    }
+    
+    // Always pulse the seconds element since it changes every second
     secondsElement.classList.add('pulse');
     setTimeout(() => {
         secondsElement.classList.remove('pulse');
     }, 500);
+    
+    // Add digital clock effect to show the formatted time
+    const clockDisplay = document.createElement('div');
+    clockDisplay.className = 'digital-clock';
+    clockDisplay.textContent = countdownDisplay;
+    
+    // If the digital clock doesn't exist yet, add it
+    if (!document.querySelector('.digital-clock')) {
+        const container = document.querySelector('.countdown-container');
+        container.insertAdjacentElement('afterend', clockDisplay);
+    } else {
+        // Otherwise just update the existing one
+        document.querySelector('.digital-clock').textContent = countdownDisplay;
+    }
 }
 
 /**
@@ -65,10 +99,16 @@ function updateCountdown() {
  */
 function handleReleaseDay() {
     // Update countdown display
-    daysElement.textContent = '000';
+    daysElement.textContent = '00';
     hoursElement.textContent = '00';
     minutesElement.textContent = '00';
     secondsElement.textContent = '00';
+    
+    // Update digital clock
+    if (document.querySelector('.digital-clock')) {
+        document.querySelector('.digital-clock').textContent = '00:00:00:00';
+        document.querySelector('.digital-clock').classList.add('released');
+    }
     
     // Change the countdown container style
     countdownContainer.style.opacity = '0.7';
@@ -110,6 +150,16 @@ style.textContent = `
     100% { transform: scale(1); }
 }
 
+.glow-change {
+    animation: glow-animation 2s ease-in-out;
+}
+
+@keyframes glow-animation {
+    0% { box-shadow: 0 0 10px var(--gta-neon-blue), 0 0 20px rgba(0, 255, 255, 0.5); }
+    50% { box-shadow: 0 0 20px var(--gta-neon-yellow), 0 0 40px var(--gta-neon-yellow); }
+    100% { box-shadow: 0 0 10px var(--gta-neon-blue), 0 0 20px rgba(0, 255, 255, 0.5); }
+}
+
 .appear {
     opacity: 1;
     transform: translateY(0);
@@ -122,7 +172,7 @@ style.textContent = `
 }
 
 .released-message {
-    background-color: rgba(229, 9, 20, 0.7) !important;
+    background-color: rgba(255, 0, 255, 0.7) !important;
     padding: 1.5rem !important;
     animation: pulse 1.5s infinite;
 }
@@ -131,10 +181,66 @@ style.textContent = `
     color: white;
     font-size: 2rem !important;
     font-weight: bold;
+    text-shadow: 
+        0 0 5px var(--gta-neon-pink),
+        0 0 10px var(--gta-neon-pink),
+        0 0 20px var(--gta-neon-purple);
 }
 
 .release-day {
-    background-image: url('https://raw.githubusercontent.com/dummy/gta-countdown/main/images/release-bg.jpg');
+    background-image: url('https://raw.githubusercontent.com/arthurbernardos/gta-countdown/main/images/release-bg.jpg');
+}
+
+.digital-clock {
+    font-family: 'Audiowide', monospace;
+    font-size: 3rem;
+    text-align: center;
+    color: var(--gta-neon-blue);
+    text-shadow: 
+        0 0 5px var(--gta-neon-blue),
+        0 0 10px var(--gta-neon-blue),
+        0 0 15px var(--gta-neon-blue);
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 1rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    border-radius: 8px;
+    border: 2px solid var(--gta-neon-blue);
+    letter-spacing: 5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.digital-clock::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        transparent 45%,
+        rgba(0, 255, 255, 0.1) 50%,
+        transparent 55%
+    );
+    transform: rotate(30deg);
+    animation: shine 3s infinite;
+}
+
+@media (max-width: 768px) {
+    .digital-clock {
+        font-size: 2rem;
+        padding: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .digital-clock {
+        font-size: 1.5rem;
+        padding: 0.5rem;
+        letter-spacing: 3px;
+    }
 }
 `;
 document.head.appendChild(style);
