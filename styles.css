@@ -1,5 +1,6 @@
 /* Global Styles */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;700&family=Audiowide&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap');
+
 
 * {
     margin: 0;
@@ -8,9 +9,7 @@
 }
 
 :root {
-    --gta-neon-pink: #ff00ff;
-    --gta-neon-purple: #9900ff;
-    --gta-neon-blue: #00ffff;
+    --gta-neon-pink: #ffffff;
     --gta-neon-yellow: #ffff00;
     --gta-dark-purple: #1a0033;
     --gta-black: #000000;
@@ -53,7 +52,7 @@ body::before {
 
 /* Typography */
 h1, h2, h3, .subtitle, .countdown-value, .countdown-label {
-    font-family: 'Audiowide', 'Bebas Neue', cursive;
+    font-family: 'Montserrat', sans-serif;
     letter-spacing: 2px;
 }
 
@@ -139,7 +138,7 @@ main {
     justify-content: center;
     flex-wrap: wrap;
     gap: 2rem;
-    margin: 3rem 0;
+    margin: -6rem 0;
 }
 
 .countdown-item {
@@ -383,11 +382,16 @@ footer::after {
     }
 }
 
-/* How to add your own background image:
-1. Create a folder named 'images' in your project directory
-2. Add your background image to that folder (e.g., 'vice-city-bg.jpg')
-3. Update the background-image property in the body selector to:
-   background-image: url('images/your-image-filename.jpg');
-4. If using GitHub Pages, commit and push the changes to your repository
-*/
+.gta-gradient-text {
+    background: linear-gradient(90deg, #ff2c75, #bc2eff, #4e5bff, #2ad2ff, #ffa857);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 300% 300%;
+    animation: gradient-text-animation 8s ease infinite;
+}
 
+@keyframes gradient-text-animation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}

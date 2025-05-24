@@ -192,40 +192,27 @@ style.textContent = `
 }
 
 .digital-clock {
-    font-family: 'Audiowide', monospace;
+    font-family: 'Montserrat', sans-serif;
     font-size: 3rem;
     text-align: center;
-    color: var(--gta-neon-blue);
-    text-shadow: 
-        0 0 5px var(--gta-neon-blue),
-        0 0 10px var(--gta-neon-blue),
-        0 0 15px var(--gta-neon-blue);
-    background-color: rgba(0, 0, 0, 0.7);
+    background: linear-gradient(90deg, #ff2c75, #bc2eff, #4e5bff, #2ad2ff, #ffa857);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 300% 300%;
+    animation: gradient-text-animation 8s ease infinite;
     padding: 1rem;
     margin: 2rem auto;
     max-width: 600px;
     border-radius: 8px;
-    border: 2px solid var(--gta-neon-blue);
+    border: none;
     letter-spacing: 5px;
     position: relative;
     overflow: hidden;
+    box-shadow: none;
 }
 
 .digital-clock::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-        to bottom right,
-        transparent 45%,
-        rgba(0, 255, 255, 0.1) 50%,
-        transparent 55%
-    );
-    transform: rotate(30deg);
-    animation: shine 3s infinite;
+    display: none;
 }
 
 @media (max-width: 768px) {
