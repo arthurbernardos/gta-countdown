@@ -1,0 +1,278 @@
+/* Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --gta-red: #e50914;
+    --gta-gold: #d4af37;
+    --gta-black: #111111;
+    --gta-dark-gray: #222222;
+    --gta-light-gray: #aaaaaa;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--gta-black);
+    color: white;
+    line-height: 1.6;
+    background-image: url('https://raw.githubusercontent.com/dummy/gta-countdown/main/images/background.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: -1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Typography */
+h1, h2, h3, .subtitle, .countdown-value, .countdown-label {
+    font-family: 'Bebas Neue', cursive;
+    letter-spacing: 2px;
+}
+
+/* Header Styles */
+header {
+    text-align: center;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--gta-red);
+}
+
+.title {
+    font-size: 5rem;
+    color: var(--gta-gold);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    margin-bottom: 0.5rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+    }
+    100% {
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: white;
+    letter-spacing: 5px;
+}
+
+/* Main Content Styles */
+main {
+    flex-grow: 1;
+}
+
+/* Countdown Styles */
+.countdown-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(34, 34, 34, 0.8);
+    border: 1px solid var(--gta-red);
+    border-radius: 8px;
+    padding: 1.5rem;
+    width: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.countdown-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.countdown-value {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.countdown-label {
+    font-size: 1rem;
+    color: var(--gta-gold);
+    letter-spacing: 2px;
+}
+
+/* Release Date Styles */
+.release-date {
+    text-align: center;
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: rgba(229, 9, 20, 0.2);
+    border-radius: 5px;
+}
+
+.release-date p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 1px;
+}
+
+/* Description Styles */
+.description {
+    text-align: center;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: rgba(34, 34, 34, 0.7);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.description p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--gta-light-gray);
+}
+
+/* Footer Styles */
+footer {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gta-dark-gray);
+    text-align: center;
+}
+
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.social-button {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: var(--gta-dark-gray);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-button:hover {
+    background-color: var(--gta-red);
+    transform: scale(1.1);
+}
+
+.icon {
+    font-size: 0.8rem;
+}
+
+.disclaimer {
+    font-size: 0.8rem;
+    color: var(--gta-light-gray);
+    margin-top: 1rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .title {
+        font-size: 3.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .countdown-container {
+        gap: 1rem;
+    }
+    
+    .countdown-item {
+        width: 120px;
+        padding: 1rem;
+    }
+    
+    .countdown-value {
+        font-size: 2.5rem;
+    }
+    
+    .countdown-label {
+        font-size: 0.9rem;
+    }
+    
+    .description p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 3rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .countdown-container {
+        gap: 0.8rem;
+    }
+    
+    .countdown-item {
+        width: 80px;
+        padding: 0.8rem;
+    }
+    
+    .countdown-value {
+        font-size: 2rem;
+    }
+    
+    .countdown-label {
+        font-size: 0.8rem;
+    }
+    
+    .description p {
+        font-size: 0.9rem;
+    }
+}
+
